@@ -114,14 +114,25 @@ class Scanner(object):
 				out.write("\n")
 
 def main():
-	with open("input.txt", 'r') as inp:
-		input_str = inp.read()
-		scanner1 = Scanner(input_str)
-		# print(input_str)
-		# print(input_str[56])
-		# print(input_str.split("\n"))
-		scanner1.createOutputFile()
-
+	condition = 1
+	input_str = ""
+	while condition:
+		input_filename = str(input("Enter input file name or path (default input.txt): "))
+		if input_filename == "":
+			input_filename = "input.txt"
+		try:
+			with open(input_filename, 'r') as inp:
+				input_str = inp.read()
+			condition = 0
+		except Exception as e:
+			print("Error404", str(e))
+			condition = 1
+		
+	scanner1 = Scanner(input_str)
+	output_filename = str(input("Enter output file name (default output.txt): "))
+	if output_filename == "":
+			output_filename = "output.txt"
+	scanner1.createOutputFile(output_filename)
 
 if __name__ == "__main__":
     main()
