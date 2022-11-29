@@ -7,10 +7,11 @@ TINY language snippet code (multiple lines of code written in TINY language synt
 ## 2. <u>**Output:**</u>
 
 List of ( tokenvalue, tokentype) in a file
-Example:
-x , Identifier
-:=, assign
-4,number
+
+Examples:
+- x , Identifier
+- :=, assign
+- 4,number
 
 ## 3. <u>**List of Tokens**</u>
 
