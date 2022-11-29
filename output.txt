@@ -1,32 +1,32 @@
-read , Reserved word: READ
-x , IDENTIFIER
-; , SEMICOLON
-if , Reserved word: IF
-0 , NUMBER
-< , LESSTHAN
-x , IDENTIFIER
-then , Reserved word: THEN
-fact , IDENTIFIER
-:= , ASSIGN
-1 , NUMBER
-; , SEMICOLON
-repeat , Reserved word: REPEAT
-fact , IDENTIFIER
-:= , ASSIGN
-fact , IDENTIFIER
-* , MULT
-x , IDENTIFIER
-; , SEMICOLON
-x , IDENTIFIER
-:= , ASSIGN
-x , IDENTIFIER
-- , MINUS
-1 , NUMBER
-until , Reserved word: UNTIL
-x , IDENTIFIER
-= , EQUAL
-0 , NUMBER
-; , SEMICOLON
-write , Reserved word: WRITE
-fact , IDENTIFIER
-end , Reserved word: END
+read , Reserved word
+x , Identifier
+; , Special character
+if , Reserved word
+0 , Number
+< , Special character
+x , Identifier
+then , Reserved word
+fact , Identifier
+:= , Assign
+1 , Number
+; , Special character
+repeat , Reserved word
+fact , Identifier
+:= , Assign
+fact , Identifier
+* , Special character
+x , Identifier
+; , Special character
+x , Identifier
+:= , Assign
+x , Identifier
+- , Special character
+1 , Number
+until , Reserved word
+x , Identifier
+= , Special character
+0 , Number
+; , Special character
+Write , Reserved word
+fact , Identifier
+end , Reserved word

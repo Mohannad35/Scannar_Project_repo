@@ -40,18 +40,19 @@ class Scanner(object):
 						tiny_str += tiny_line[i]
 						state = "assign"
 					elif tiny_line[i] == '{':
-						tiny_str += tiny_line[i]
+						# tiny_str += tiny_line[i]
 						state = "comment"
 					else:
 						state = 'done'
 				# identifier state 
 				elif state == 'id':
 					# identifier can only start with alpha but after that it can contain numbers
-					if tiny_line[i].isalnum():
+					if tiny_line[i].isalnum(): # {
 						tiny_str += tiny_line[i]
 						state = "id"
 					else:
 						state = "done"
+						i -= 1
 				# number state
 				elif state == "number":
 					if tiny_line[i].isdigit():
@@ -59,6 +60,7 @@ class Scanner(object):
 						state = "number"
 					else:
 						state = "done"
+						i -= 1
 				# assign state
 				elif state == "assign":
 					if tiny_line[i] == "=":
@@ -69,10 +71,11 @@ class Scanner(object):
 				# comment state
 				elif state == "comment":
 					if tiny_line[i] == "}":
-						tiny_str += tiny_line[i]
+						# tiny_str += tiny_line[i]
 						state = "start"
 					else:
-						tiny_str += tiny_line[i]
+						pass
+						# tiny_str += tiny_line[i]
 				# done state
 				elif state == "done":
 					tokens_list.append(tiny_str)
@@ -85,7 +88,7 @@ class Scanner(object):
 				tiny_str = ""
 		output_tokens = []
 		for token in tokens_list:
-			if token in reserved_words:
+			if token.lower() in reserved_words:
 				output_tokens.append((token, "Reserved word"))
 			elif token in special_chars:
 				output_tokens.append((token, "Special character"))
@@ -102,10 +105,23 @@ class Scanner(object):
 			self.code_list = tokens_list
 			self.token_list = output_tokens
 
-	def createOutputFile(self, filename):
+	def createOutputFile(self, filename="output.txt"):
 		self.scan()
 		# output_code = self.scan()
 		with open(filename, 'w+') as out:
 			for t in self.token_list:
-				out.write(str(t))
+				out.write(str(t[0] + " , " + t[1]))
+				out.write("\n")
 
+def main():
+	with open("input.txt", 'r') as inp:
+		input_str = inp.read()
+		scanner1 = Scanner(input_str)
+		# print(input_str)
+		# print(input_str[56])
+		# print(input_str.split("\n"))
+		scanner1.createOutputFile()
+
+
+if __name__ == "__main__":
+    main()
