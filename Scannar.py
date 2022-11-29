@@ -10,6 +10,46 @@ class Scanner(object):
 	def setTinyCode(self, tiny_code):
 		self.tiny_code = tiny_code
 
+	def special_char_type(self, sp_ch):
+		if sp_ch == ';':
+			return "SEMICOLON"
+		if sp_ch == '(':
+			return "OPENBRACKET"
+		if sp_ch == ')':
+			return "CLOSEDBRACKET"
+		if sp_ch == '+':
+			return "PLUS"
+		if sp_ch == '-':
+			return "MINUS"
+		if sp_ch == '*':
+			return "MULT"
+		if sp_ch == '/':
+			return "DIV"
+		if sp_ch == '=':
+			return "EQUAL"
+		if sp_ch == '<':
+			return "LESSTHAN"
+		# if sp_ch == '>':
+		# 	return "GREATERTHAN"
+
+	def reserved_word_type(self, r_word):
+		if r_word == 'if':
+			return "IF"
+		if r_word == 'then':
+			return "THEN"
+		if r_word == 'else':
+			return "ELSE"
+		if r_word == 'end':
+			return "END"
+		if r_word == 'repeat':
+			return "REPEAT"
+		if r_word == 'until':
+			return "UNTIL"
+		if r_word == 'read':
+			return "READ"
+		if r_word == 'write':
+			return "WRITE"
+
 	def scan(self):
 		tokens_list = []
 		special_chars = ['(', ')', '+', '-', '*', '/', '=', ';', '<', '>']
@@ -89,15 +129,17 @@ class Scanner(object):
 		output_tokens = []
 		for token in tokens_list:
 			if token.lower() in reserved_words:
-				output_tokens.append((token, "Reserved word"))
+				TokenType = self.reserved_word_type(token.lower())
+				output_tokens.append((token, TokenType))
 			elif token in special_chars:
-				output_tokens.append((token, "Special character"))
+				TokenType = self.special_char_type(token)
+				output_tokens.append((token, TokenType))
 			elif token == ":=":
-				output_tokens.append((token, "Assign"))
+				output_tokens.append((token, "ASSIGN"))
 			elif token.isdigit():
-				output_tokens.append((token, "Number"))
+				output_tokens.append((token, "NUMBER"))
 			elif token.isalnum():
-				output_tokens.append((token, "Identifier"))
+				output_tokens.append((token, "IDENTIFIER"))
 			else: 
 				# error state or comment
 				pass
@@ -107,7 +149,6 @@ class Scanner(object):
 
 	def createOutputFile(self, filename="output.txt"):
 		self.scan()
-		# output_code = self.scan()
 		with open(filename, 'w+') as out:
 			for t in self.token_list:
 				out.write(str(t[0] + " , " + t[1]))
@@ -125,14 +166,15 @@ def main():
 				input_str = inp.read()
 			condition = 0
 		except Exception as e:
-			print("Error404", str(e))
+			print("Error", str(e))
 			condition = 1
 		
-	scanner1 = Scanner(input_str)
+	obj_Scanner = Scanner(input_str)
 	output_filename = str(input("Enter output file name (default output.txt): "))
 	if output_filename == "":
 			output_filename = "output.txt"
-	scanner1.createOutputFile(output_filename)
-
+	obj_Scanner.createOutputFile(output_filename)
+	print("Done!")
+	input("Press Enter to exit...")
 if __name__ == "__main__":
     main()
